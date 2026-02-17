@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.piovezan</groupId>
-	<artifactId>certi-vision</artifactId>
+	<artifactId>cert-vision</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>certi-vision</name>
 	<description>Manage certificates</description>

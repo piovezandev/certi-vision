@@ -1,10 +1,10 @@
-package br.com.piovezan.certi.vision;
+package br.com.piovezan.certvision;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CertiVisionApplicationTests {
+class CertVisionApplicationTests {
 
 	@Test
 	void contextLoads() {

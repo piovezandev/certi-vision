@@ -1,13 +1,13 @@
-package br.com.piovezan.certi.vision;
+package br.com.piovezan.certvision;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CertiVisionApplication {
+public class CertVisionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CertiVisionApplication.class, args);
+		SpringApplication.run(CertVisionApplication.class, args);
 	}
 
 }
