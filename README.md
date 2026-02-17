@@ -1,2 +1,2 @@
-# certi-vision
+# cert-vision
 Certificate management
