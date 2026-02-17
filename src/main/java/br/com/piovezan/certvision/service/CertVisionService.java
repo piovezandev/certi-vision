@@ -40,8 +40,8 @@ public class CertVisionService {
         return null;
     }
 
-    private static CertVisionResponse findCertificateInfo(HttpsURLConnection conexao) throws SSLPeerUnverifiedException {
-        return stream(conexao.getServerCertificates())
+    private static CertVisionResponse findCertificateInfo(HttpsURLConnection httpsURLConnection) throws SSLPeerUnverifiedException {
+        return stream(httpsURLConnection.getServerCertificates())
                 .filter(cert -> cert instanceof X509Certificate)
                 .map(cert -> (X509Certificate) cert)
                 .findFirst()
