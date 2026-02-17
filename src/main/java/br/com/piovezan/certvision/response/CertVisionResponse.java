@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class CertVisionResponse {
 
-    private String organization;
+    private String issuer;
     private Date expirationDate;
     private Date startCertificateDate;
 
-    public String getOrganization() {
-        return organization;
+    public String getIssuer() {
+        return issuer;
     }
 
-    public void setOrganization(String organization) {
-        this.organization = organization;
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
     }
 
     public Date getExpirationDate() {

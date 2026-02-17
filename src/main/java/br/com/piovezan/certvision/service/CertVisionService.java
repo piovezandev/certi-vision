@@ -2,59 +2,50 @@ package br.com.piovezan.certvision.service;
 
 import br.com.piovezan.certvision.request.CertVisionRequest;
 import br.com.piovezan.certvision.response.CertVisionResponse;
-import br.com.piovezan.certvision.utils.NotSecureTrustManager;
+import br.com.piovezan.certvision.response.CertVisionResponseFactory;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import java.io.IOException;
+import javax.net.ssl.SSLPeerUnverifiedException;
+import java.net.URI;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+
+import static java.util.Arrays.stream;
 
 @Service
 public class CertVisionService {
 
-    private static final String PROTOCOL_TLS = "TLS";
+    public CertVisionResponse validateCertificate(CertVisionRequest certVisionRequest) {
 
-    public CertVisionResponse validateCertificate(CertVisionRequest request) {
         try {
-            return extractCertificate(request.getUrl()).stream().findFirst().map(cert -> {
-                CertVisionResponse response = new CertVisionResponse();
-                response.setOrganization(cert.getSubjectX500Principal().getName());
-                response.setStartCertificateDate(cert.getNotBefore());
-                response.setExpirationDate(cert.getNotAfter());
-                return response;
-            }).orElse(null);
-        } catch (KeyManagementException | NoSuchAlgorithmException | IOException e) {
-            throw new RuntimeException(e);
+            URL url = URI.create(certVisionRequest.getUrl()).toURL();
+
+            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+
+            httpsURLConnection.connect();
+
+            CertVisionResponse certVisionResponse = findCertificateInfo(httpsURLConnection);
+
+            System.out.println("Emissor: " + certVisionResponse.getIssuer());
+            System.out.println("Válido de: " + certVisionResponse.getStartCertificateDate());
+            System.out.println("Válido até: " + certVisionResponse.getExpirationDate());
+
+            httpsURLConnection.disconnect();
+            return certVisionResponse;
+        } catch (Exception e) {
+            System.err.println("Erro ao consultar dados do certificado: {}" + e.getMessage());
         }
+
+        return null;
     }
 
-    private Collection<X509Certificate> extractCertificate(String urlStr) throws KeyManagementException, NoSuchAlgorithmException, IOException {
-        SSLContext ctx = SSLContext.getInstance(PROTOCOL_TLS);
-        ctx.init(null, new TrustManager[]{new NotSecureTrustManager()}, new SecureRandom());
-
-        HttpsURLConnection conn = (HttpsURLConnection) new URL(urlStr).openConnection();
-
-        conn.setHostnameVerifier((host, session) -> true);
-        conn.connect();
-
-        List<X509Certificate> certs = Arrays
-                .stream(conn.getServerCertificates())
+    private static CertVisionResponse findCertificateInfo(HttpsURLConnection conexao) throws SSLPeerUnverifiedException {
+        return stream(conexao.getServerCertificates())
                 .filter(cert -> cert instanceof X509Certificate)
                 .map(cert -> (X509Certificate) cert)
-                .toList();
-
-        conn.disconnect();
-        return certs;
+                .findFirst()
+                .map(CertVisionResponseFactory::fromCertificate)
+                .orElse(null);
     }
-
-
 }
