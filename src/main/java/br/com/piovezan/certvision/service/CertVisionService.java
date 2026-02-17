@@ -17,8 +17,8 @@ import static java.util.Arrays.stream;
 public class CertVisionService {
 
     public CertVisionResponse validateCertificate(CertVisionRequest certVisionRequest) {
-
         try {
+
             URL url = URI.create(certVisionRequest.getUrl()).toURL();
 
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
