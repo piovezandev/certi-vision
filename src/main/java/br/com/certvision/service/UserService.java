@@ -1,8 +1,8 @@
 package br.com.certvision.service;
 
 import br.com.certvision.repository.UserRepository;
-import br.com.certvision.model.User;
-import br.com.certvision.request.UserRequest;
+import br.com.certvision.domain.model.User;
+import br.com.certvision.domain.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package br.com.certvision.controller;
 
-import br.com.certvision.model.User;
-import br.com.certvision.request.UserRequest;
+import br.com.certvision.domain.model.User;
+import br.com.certvision.domain.request.UserRequest;
 import br.com.certvision.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

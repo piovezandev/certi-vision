@@ -1,4 +1,4 @@
-package br.com.certvision.model;
+package br.com.certvision.domain.model;
 
 import jakarta.persistence.*;
 

@@ -1,7 +1,7 @@
 package br.com.certvision.controller;
 
-import br.com.certvision.request.LoginRequest;
-import br.com.certvision.response.LoginResponse;
+import br.com.certvision.domain.request.LoginRequest;
+import br.com.certvision.domain.response.LoginResponse;
 import br.com.certvision.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

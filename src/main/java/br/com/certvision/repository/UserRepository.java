@@ -1,6 +1,6 @@
 package br.com.certvision.repository;
 
-import br.com.certvision.model.User;
+import br.com.certvision.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

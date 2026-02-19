@@ -1,9 +1,9 @@
 package br.com.certvision.service;
 
 import br.com.certvision.exceptions.CertficateException;
-import br.com.certvision.request.CertificateRequest;
-import br.com.certvision.response.CertificateResponse;
-import br.com.certvision.response.CertificateResponseFactory;
+import br.com.certvision.domain.request.CertificateRequest;
+import br.com.certvision.domain.response.CertificateResponse;
+import br.com.certvision.domain.response.CertificateResponseFactory;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
