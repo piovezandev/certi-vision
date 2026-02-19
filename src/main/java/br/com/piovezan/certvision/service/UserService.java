@@ -1,7 +1,9 @@
 package br.com.piovezan.certvision.service;
 
+import br.com.piovezan.certvision.model.Company;
 import br.com.piovezan.certvision.model.User;
 import br.com.piovezan.certvision.repository.UserRepository;
+import br.com.piovezan.certvision.request.RegisterRequest;
 import br.com.piovezan.certvision.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,11 +21,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void create(UserRequest request) {
+    //TODO implementar mapper
+    public void register(RegisterRequest request, Company company) {
         User user = new User();
-        user.setUsername(request.username());
+        user.setUsername(request.fullName());
+        user.setEmail(request.email());
+        user.setEmail_verified(false);
+        user.setRole("ADMIN");
+        user.setCompany(company);
         user.setPassword(passwordEncoder.encode(request.password()));
-
         userRepository.save(user);
     }
 
@@ -31,7 +37,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getByUserName(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> getByUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

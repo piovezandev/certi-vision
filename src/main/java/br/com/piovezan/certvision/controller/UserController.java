@@ -1,7 +1,7 @@
 package br.com.piovezan.certvision.controller;
 
 import br.com.piovezan.certvision.model.User;
-import br.com.piovezan.certvision.request.UserRequest;
+import br.com.piovezan.certvision.request.RegisterRequest;
 import br.com.piovezan.certvision.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    void create(@RequestBody UserRequest userRequest) {
-        userService.create(userRequest);
+    void create(@RequestBody RegisterRequest userRequest) {
     }
 
     @GetMapping("/users")

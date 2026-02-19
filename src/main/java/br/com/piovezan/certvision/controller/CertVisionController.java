@@ -1,5 +1,6 @@
 package br.com.piovezan.certvision.controller;
 
+import br.com.piovezan.certvision.domain.CertificateDto;
 import br.com.piovezan.certvision.request.CertVisionRequest;
 import br.com.piovezan.certvision.response.CertVisionResponse;
 import br.com.piovezan.certvision.service.CertVisionService;
@@ -15,6 +16,12 @@ public class CertVisionController {
 
     @PostMapping("/validate/certificate")
     public CertVisionResponse certificate(@RequestBody CertVisionRequest request) {
-      return certVisionService.validateCertificate(request);
+        return certVisionService.validateCertificate(request);
+    }
+
+    @PostMapping("/certificate/upload")
+    public void upload(@RequestBody CertificateDto certificateDto) {
+        certVisionService.uploadCertificate(certificateDto);
+
     }
 }

@@ -1,8 +1,13 @@
 package br.com.piovezan.certvision.service;
 
+import br.com.piovezan.certvision.domain.CertificateDto;
+import br.com.piovezan.certvision.mapper.CertificateMapper;
+import br.com.piovezan.certvision.model.Certificate;
+import br.com.piovezan.certvision.repository.CertificateRepository;
 import br.com.piovezan.certvision.request.CertVisionRequest;
 import br.com.piovezan.certvision.response.CertVisionResponse;
 import br.com.piovezan.certvision.response.CertVisionResponseFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -10,11 +15,18 @@ import javax.net.ssl.SSLPeerUnverifiedException;
 import java.net.URI;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
 
 import static java.util.Arrays.stream;
 
 @Service
 public class CertVisionService {
+
+    @Autowired
+    private CertificateRepository certificateRepository;
+
+    @Autowired
+    private CertificateMapper mapper;
 
     public CertVisionResponse validateCertificate(CertVisionRequest certVisionRequest) {
         try {
@@ -47,5 +59,12 @@ public class CertVisionService {
                 .findFirst()
                 .map(CertVisionResponseFactory::fromCertificate)
                 .orElse(null);
+    }
+
+    public void uploadCertificate(CertificateDto certificateDto) {
+        Certificate certificate = mapper.toEntity(certificateDto);
+        certificate.setCreate_dt(LocalDateTime.now());
+        certificate.setActive(true);
+        certificateRepository.save(certificate);
     }
 }
