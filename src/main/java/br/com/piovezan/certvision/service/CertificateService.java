@@ -20,7 +20,7 @@ public class CertificateService {
     public CertificateResponse validateCertificate(CertificateRequest certificateRequest) {
         try {
 
-            URL url = URI.create(certificateRequest.getUrl()).toURL();
+            URL url = URI.create(certificateRequest.url()).toURL();
 
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
 
