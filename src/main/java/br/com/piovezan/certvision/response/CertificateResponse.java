@@ -2,7 +2,7 @@ package br.com.piovezan.certvision.response;
 
 import java.util.Date;
 
-public class CertVisionResponse {
+public class CertificateResponse {
 
     private String issuer;
     private Date expirationDate;
