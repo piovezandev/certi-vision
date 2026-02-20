@@ -5,12 +5,15 @@ import java.util.Date;
 public class CertificateResponse {
 
     private String issuer;
-    private String subject;
+    private String commonName;
+    private String organization;
+    private String organizationUnit;
     private Date expirationDate;
     private Date startCertificateDate;
     private boolean expired;
     private int version;
     private String serialNumber;
+    private String algorithmSignature;
 
     public String getIssuer() {
         return issuer;
@@ -20,12 +23,28 @@ public class CertificateResponse {
         this.issuer = issuer;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getCommonName() {
+        return commonName;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getOrganizationUnit() {
+        return organizationUnit;
+    }
+
+    public void setOrganizationUnit(String organizationUnit) {
+        this.organizationUnit = organizationUnit;
     }
 
     public Date getExpirationDate() {
@@ -66,5 +85,13 @@ public class CertificateResponse {
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
+    }
+
+    public String getAlgorithmSignature() {
+        return algorithmSignature;
+    }
+
+    public void setAlgorithmSignature(String algorithmSignature) {
+        this.algorithmSignature = algorithmSignature;
     }
 }
