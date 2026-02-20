@@ -47,7 +47,6 @@ public class CertificateUtils {
         }
     }
 
-
     public static String extractOrganizationUnit(X509Certificate certificate) {
         String certFullName = certificate.getSubjectX500Principal().getName();
         try {
@@ -62,8 +61,4 @@ public class CertificateUtils {
             throw new CertificateException("Erro ao extrair 'UO' do certificado: ", error);
         }
     }
-
-
-
-
 }
