@@ -15,11 +15,11 @@ public class Company {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "company_id")
     private Long id;
 
-    @Column(name = "document", precision = 20)
+    @Column(name = "document", length = 20)
     private String cnpj;
 
     @Column(name = "name")

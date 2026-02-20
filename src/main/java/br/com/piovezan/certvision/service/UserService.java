@@ -1,14 +1,16 @@
 package br.com.piovezan.certvision.service;
 
+import br.com.piovezan.certvision.mapper.UserMapper;
 import br.com.piovezan.certvision.model.Company;
 import br.com.piovezan.certvision.model.User;
 import br.com.piovezan.certvision.repository.UserRepository;
 import br.com.piovezan.certvision.request.RegisterRequest;
-import br.com.piovezan.certvision.request.UserRequest;
+import br.com.piovezan.certvision.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +23,13 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserMapper userMapper;
+
     //TODO implementar mapper
     public void register(RegisterRequest request, Company company) {
         User user = new User();
-        user.setUsername(request.fullName());
+        user.setFullName(request.fullName());
         user.setEmail(request.email());
         user.setEmail_verified(false);
         user.setRole("ADMIN");
@@ -33,8 +38,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> getUser() {
-        return userRepository.findAll();
+    public List<UserResponse> getUsersList() {
+
+        List<UserResponse> responses = new ArrayList<>();
+        userRepository.findAll()
+                .forEach(user -> responses.add(userMapper.entityToResponse(user)));
+
+        return responses;
+
     }
 
     public Optional<User> getByUserByEmail(String email) {

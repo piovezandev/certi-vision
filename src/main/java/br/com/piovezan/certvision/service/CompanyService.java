@@ -1,6 +1,5 @@
 package br.com.piovezan.certvision.service;
 
-import br.com.piovezan.certvision.domain.CompanyDto;
 import br.com.piovezan.certvision.mapper.CompanyMapper;
 import br.com.piovezan.certvision.model.Company;
 import br.com.piovezan.certvision.repository.CompanyRepository;

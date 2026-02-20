@@ -5,6 +5,7 @@ import br.com.piovezan.certvision.request.RegisterRequest;
 import br.com.piovezan.certvision.response.AuthResponse;
 import br.com.piovezan.certvision.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegisterRequest request) {
+    public ResponseEntity register(@RequestBody RegisterRequest request) {
         authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

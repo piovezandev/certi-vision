@@ -1,7 +1,7 @@
 package br.com.piovezan.certvision.controller;
 
-import br.com.piovezan.certvision.model.User;
 import br.com.piovezan.certvision.request.RegisterRequest;
+import br.com.piovezan.certvision.response.UserResponse;
 import br.com.piovezan.certvision.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    List<User> getUser() {
-        return userService.getUser();
+    List<UserResponse> getUser() {
+        return userService.getUsersList();
     }
 }

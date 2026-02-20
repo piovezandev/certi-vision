@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Host {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "hostname")
@@ -20,7 +20,6 @@ public class Host {
 
     @Column(name = "port")
     private Long port;
-
 
     public Long getId() {
         return id;

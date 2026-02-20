@@ -2,16 +2,18 @@ package br.com.piovezan.certvision.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String fullName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -22,7 +24,7 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    @Column()
+    @Column(name = "email_verified")
     private Boolean email_verified;
 
     @ManyToOne
@@ -53,12 +55,12 @@ public class User {
         this.company = company;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPassword() {
@@ -83,5 +85,15 @@ public class User {
 
     public void setEmail_verified(Boolean email_verified) {
         this.email_verified = email_verified;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
