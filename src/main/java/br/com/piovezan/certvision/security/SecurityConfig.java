@@ -31,7 +31,6 @@ public class SecurityConfig {
                 .requestMatchers("/api/register").permitAll()
                 .requestMatchers("/api/users").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
