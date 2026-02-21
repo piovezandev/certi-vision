@@ -6,13 +6,13 @@
 	},
 	"item": [
 		{
-			"name": "validate certificate",
+			"name": "1 - create user",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"url\" : \"https://www.google.com\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"alan\",\r\n    \"password\": \"alan\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9090/api/validate/certificate",
+					"raw": "http://localhost:9090/api/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -28,8 +28,85 @@
 					"port": "9090",
 					"path": [
 						"api",
-						"validate",
-						"certificate"
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"token-cert\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"alan\",\r\n    \"password\": \"alan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - certificate info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-cert}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/certificate/info?url=https://www.uol.com.br",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"certificate",
+						"info"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://www.uol.com.br"
+						}
 					]
 				}
 			},

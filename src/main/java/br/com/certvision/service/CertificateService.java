@@ -1,7 +1,6 @@
 package br.com.certvision.service;
 
-import br.com.certvision.exceptions.CertficateException;
-import br.com.certvision.domain.request.CertificateRequest;
+import br.com.certvision.exceptions.CertificateException;
 import br.com.certvision.domain.response.CertificateResponse;
 import br.com.certvision.domain.response.CertificateResponseFactory;
 import org.springframework.stereotype.Service;
@@ -17,30 +16,30 @@ import static java.util.Arrays.stream;
 @Service
 public class CertificateService {
 
-    public CertificateResponse validateCertificate(CertificateRequest certificateRequest) {
+    public CertificateResponse getCertificateInfoByUrl(String url) {
         try {
 
-            URL url = URI.create(certificateRequest.url()).toURL();
+            URL urlCertificate = URI.create(url).toURL();
 
-            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) urlCertificate.openConnection();
 
             httpsURLConnection.connect();
 
-            CertificateResponse certificateResponse = findCertificateInfo(httpsURLConnection);
+            CertificateResponse certificateResponse = extractCertificateUrl(httpsURLConnection);
             httpsURLConnection.disconnect();
 
             return certificateResponse;
         } catch (Exception exception) {
-            throw new CertficateException("Erro ao validar certificado", exception);
+            throw new CertificateException("Erro ao consultar dados do certificado: ", exception);
         }
     }
 
-    private static CertificateResponse findCertificateInfo(HttpsURLConnection httpsURLConnection) throws SSLPeerUnverifiedException {
+    private static CertificateResponse extractCertificateUrl(HttpsURLConnection httpsURLConnection) throws SSLPeerUnverifiedException {
         return stream(httpsURLConnection.getServerCertificates())
                 .filter(cert -> cert instanceof X509Certificate)
                 .map(cert -> (X509Certificate) cert)
                 .findFirst()
                 .map(CertificateResponseFactory::fromCertificate)
-                .orElseThrow(() -> new CertficateException("Erro ao consultar dados do certificado"));
+                .orElseThrow(() -> new CertificateException("Erro ao extrair dados do certificado"));
     }
 }
