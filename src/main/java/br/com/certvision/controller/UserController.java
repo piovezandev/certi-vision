@@ -1,7 +1,7 @@
 package br.com.certvision.controller;
 
-import br.com.certvision.domain.model.User;
-import br.com.certvision.domain.request.UserRequest;
+import br.com.certvision.domain.request.RegisterRequest;
+import br.com.certvision.domain.response.UserResponse;
 import br.com.certvision.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -20,12 +21,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    void create(@RequestBody UserRequest userRequest) {
-        userService.create(userRequest);
+    void create(@RequestBody RegisterRequest userRequest) {
     }
 
     @GetMapping("/users")
-    List<User> getUser() {
-        return userService.getUser();
+    List<UserResponse> getUser() {
+        return userService.getUsersList();
     }
 }

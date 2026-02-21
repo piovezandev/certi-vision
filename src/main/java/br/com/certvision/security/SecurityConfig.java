@@ -28,10 +28,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/login").permitAll()
-                .requestMatchers("/api/user").permitAll()
-                .requestMatchers("/api/users").permitAll()
+                .requestMatchers("/api/register").permitAll()
+                .requestMatchers("/api/users").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 

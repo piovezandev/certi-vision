@@ -1,4 +1,4 @@
 package br.com.certvision.domain.response;
 
-public record LoginResponse(String token) {
+public record AuthResponse(String token) {
 }

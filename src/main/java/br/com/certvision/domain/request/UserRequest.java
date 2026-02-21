@@ -1,4 +1,4 @@
 package br.com.certvision.domain.request;
 
-public record UserRequest(String username, String password) {
+public record UserRequest(String fullName, String email, String role) {
 }
